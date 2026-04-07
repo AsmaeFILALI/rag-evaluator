@@ -61,9 +61,7 @@ class TestLocalRunner:
             make_record(id="r-001", contexts=[]),
             make_record(id="r-002", contexts=[]),
         ]
-        dataset_path.write_text(
-            "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-        )
+        dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
         data = make_config(
             dataset_path=str(dataset_path),
             evaluators=["context_presence"],

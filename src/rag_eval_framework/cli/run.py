@@ -126,7 +126,7 @@ def main(
 
     # Evaluator table
     click.echo(f"  {'Evaluator':30s} {'Score':>8s}  {'Threshold':>9s}  Status")
-    click.echo(f"  {'-'*30} {'-'*8}  {'-'*9}  {'-'*6}")
+    click.echo(f"  {'-' * 30} {'-' * 8}  {'-' * 9}  {'-' * 6}")
     for name, score in sorted(result.aggregate_scores.items()):
         thr = config.thresholds.get(name)
         if thr is not None:
@@ -139,9 +139,7 @@ def main(
         click.echo()
         click.echo("Threshold breaches:")
         for breach in result.threshold_breaches:
-            click.echo(
-                f"  {breach.evaluator}: {breach.actual:.4f} < {breach.threshold:.4f}"
-            )
+            click.echo(f"  {breach.evaluator}: {breach.actual:.4f} < {breach.threshold:.4f}")
 
     # Cloud run metadata
     cloud_run_id = result.run_metadata.get("cloud_run_id")

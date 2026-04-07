@@ -22,9 +22,7 @@ def _write_sample_project(tmp_path: Path) -> Path:
         make_record(id="c-001"),
         make_record(id="c-002", contexts=[]),
     ]
-    dataset_path.write_text(
-        "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-    )
+    dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
 
     config_data = make_config(
         dataset_path=str(dataset_path),
@@ -57,9 +55,7 @@ class TestCLIRun:
         config_path = _write_sample_project(tmp_path)
         custom_output = tmp_path / "custom-output"
         runner = CliRunner()
-        result = runner.invoke(
-            main, ["--config", str(config_path), "--output", str(custom_output)]
-        )
+        result = runner.invoke(main, ["--config", str(config_path), "--output", str(custom_output)])
         assert result.exit_code == 0
         assert (custom_output / "test-project").exists()
 
@@ -71,9 +67,7 @@ class TestCLIRun:
     def test_verbose_flag(self, tmp_path: Path) -> None:
         config_path = _write_sample_project(tmp_path)
         runner = CliRunner()
-        result = runner.invoke(
-            main, ["--config", str(config_path), "--verbose"]
-        )
+        result = runner.invoke(main, ["--config", str(config_path), "--verbose"])
         assert result.exit_code == 0
 
     def test_threshold_breach_exits_3(self, tmp_path: Path) -> None:
@@ -84,9 +78,7 @@ class TestCLIRun:
         dataset_path = dataset_dir / "eval.jsonl"
         # All records have empty contexts → context_presence = 0.0
         records = [make_record(id="c-001", contexts=[])]
-        dataset_path.write_text(
-            "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-        )
+        dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
         config_data = make_config(
             dataset_path=str(dataset_path),
             output_dir=str(tmp_path / "output"),

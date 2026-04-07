@@ -65,10 +65,7 @@ class EvaluatorRegistry:
         """
         if name not in self._evaluators:
             available = sorted(self._evaluators.keys())
-            raise KeyError(
-                f"No evaluator registered with name '{name}'. "
-                f"Available: {available}"
-            )
+            raise KeyError(f"No evaluator registered with name '{name}'. Available: {available}")
         return self._evaluators[name]()
 
     def list_evaluators(self) -> list[str]:
@@ -90,9 +87,7 @@ class EvaluatorRegistry:
         catalog = LOCAL_EVALUATOR_NAMES if mode == "local" else CLOUD_EVALUATOR_NAMES
         return sorted(name for name in self._evaluators if name in catalog)
 
-    def get_for_mode(
-        self, name: str, mode: Literal["local", "cloud"]
-    ) -> BaseEvaluator:
+    def get_for_mode(self, name: str, mode: Literal["local", "cloud"]) -> BaseEvaluator:
         """Return a fresh instance, validating *name* against the mode catalog.
 
         Raises
@@ -103,8 +98,7 @@ class EvaluatorRegistry:
         catalog = LOCAL_EVALUATOR_NAMES if mode == "local" else CLOUD_EVALUATOR_NAMES
         if name not in catalog:
             raise KeyError(
-                f"Evaluator '{name}' is not available in {mode} mode. "
-                f"Available: {sorted(catalog)}"
+                f"Evaluator '{name}' is not available in {mode} mode. Available: {sorted(catalog)}"
             )
         return self.get(name)
 

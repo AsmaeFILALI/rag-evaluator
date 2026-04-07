@@ -69,8 +69,7 @@ class FoundryAdapter:
         _require_foundry_sdk()
         self._client = self._build_client()
         logger.info(
-            "Connected to Azure AI Foundry project '%s' "
-            "(subscription=%s, resource_group=%s).",
+            "Connected to Azure AI Foundry project '%s' (subscription=%s, resource_group=%s).",
             self._foundry_cfg.project_name,
             self._foundry_cfg.subscription_id,
             self._foundry_cfg.resource_group,
@@ -235,9 +234,7 @@ class FoundryAdapter:
                     )
 
                     return AzureKeyCredential(api_key)
-            raise FoundryAdapterError(
-                "credential_type='key' requires azure.api_key_env to be set."
-            )
+            raise FoundryAdapterError("credential_type='key' requires azure.api_key_env to be set.")
         if cred_type == "env":
             conn_str = self._get_connection_string()
             if not conn_str:
@@ -321,9 +318,7 @@ class FoundryAdapter:
 
         return evaluator_map
 
-    def _build_evaluator_config(
-        self, evaluator_names: list[str]
-    ) -> dict[str, dict[str, Any]]:
+    def _build_evaluator_config(self, evaluator_names: list[str]) -> dict[str, dict[str, Any]]:
         """Build column-mapping config for cloud evaluators.
 
         The ``azure.ai.evaluation.evaluate`` function expects each entry in
@@ -362,8 +357,7 @@ class FoundryAdapter:
     def _ensure_connected(self) -> None:
         if self._client is None:
             raise FoundryAdapterError(
-                "FoundryAdapter.connect() must be called before submitting "
-                "evaluation runs."
+                "FoundryAdapter.connect() must be called before submitting evaluation runs."
             )
 
 

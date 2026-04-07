@@ -76,9 +76,7 @@ class TestJsonReport:
 
 
 class TestMarkdownReport:
-    def test_renders_markdown(
-        self, tmp_path: Path, sample_run_result: EvaluationRunResult
-    ) -> None:
+    def test_renders_markdown(self, tmp_path: Path, sample_run_result: EvaluationRunResult) -> None:
         path = render_markdown_report(sample_run_result, tmp_path)
         assert path.exists()
         text = path.read_text(encoding="utf-8")

@@ -38,8 +38,12 @@ def make_config(**overrides: Any) -> dict[str, Any]:
     ``local_mode`` block so callers don't have to nest them manually.
     """
     _LOCAL_MODE_KEYS = {
-        "evaluators", "thresholds", "azure", "judge",
-        "judge_model", "evaluator_options",
+        "evaluators",
+        "thresholds",
+        "azure",
+        "judge",
+        "judge_model",
+        "evaluator_options",
     }
 
     local_mode_updates: dict[str, Any] = {}

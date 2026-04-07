@@ -41,17 +41,12 @@ _FIELD_CHECKERS: dict[str, Callable[[EvaluationRecord], bool]] = {
 }
 
 
-def _check_required_fields(
-    evaluator: BaseEvaluator, record: EvaluationRecord
-) -> str | None:
+def _check_required_fields(evaluator: BaseEvaluator, record: EvaluationRecord) -> str | None:
     """Return a missing-field reason string, or *None* if all fields are OK."""
     for field in evaluator.required_fields:
         checker = _FIELD_CHECKERS.get(field)
         if checker is not None and not checker(record):
-            return (
-                f"Required field '{field}' is missing or empty "
-                f"for evaluator '{evaluator.name}'."
-            )
+            return f"Required field '{field}' is missing or empty for evaluator '{evaluator.name}'."
     return None
 
 
@@ -71,9 +66,7 @@ class LocalRunner(BaseRunner):
         start = time.monotonic()
         timestamp = datetime.now(timezone.utc).isoformat()
 
-        logger.info(
-            "Starting LOCAL mode evaluation for project '%s'", config.project_name
-        )
+        logger.info("Starting LOCAL mode evaluation for project '%s'", config.project_name)
 
         # 1. Resolve and configure evaluators
         evaluators = self._resolve_evaluators(config.evaluators)
@@ -111,9 +104,7 @@ class LocalRunner(BaseRunner):
                     raise
 
             # Per-record pass/fail
-            record_passed = self._record_passes_thresholds(
-                eval_results, config.thresholds
-            )
+            record_passed = self._record_passes_thresholds(eval_results, config.thresholds)
             record_results.append(
                 RecordResult(
                     record_id=record.id,
@@ -127,9 +118,7 @@ class LocalRunner(BaseRunner):
 
         # 5. Check thresholds
         breaches = self._check_thresholds(aggregate_scores, config.thresholds)
-        threshold_results = self._build_threshold_results(
-            aggregate_scores, config.thresholds
-        )
+        threshold_results = self._build_threshold_results(aggregate_scores, config.thresholds)
         passed = len(breaches) == 0
 
         elapsed = time.monotonic() - start
@@ -190,8 +179,7 @@ class LocalRunner(BaseRunner):
                 if er is not None and er.status == EvaluatorStatus.SUCCESS:
                     scores[name].append(er.score)
         return {
-            name: round(sum(vals) / len(vals), 4) if vals else 0.0
-            for name, vals in scores.items()
+            name: round(sum(vals) / len(vals), 4) if vals else 0.0 for name, vals in scores.items()
         }
 
     @staticmethod

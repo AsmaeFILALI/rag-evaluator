@@ -64,9 +64,7 @@ class TestEvaluatorRegistry:
 
         registry = EvaluatorRegistry()
         registry.register(MyEval)
-        result = registry.get("custom_eval").evaluate(
-            EvaluationRecord(**make_record())
-        )
+        result = registry.get("custom_eval").evaluate(EvaluationRecord(**make_record()))
         assert result.score == 0.42
 
 
@@ -144,9 +142,7 @@ class TestExactMatchAccuracyEvaluator:
         assert result.score == 0.0
 
     def test_empty_ground_truth_scores_05(self) -> None:
-        record = EvaluationRecord(
-            **make_record(ground_truth_answer="")
-        )
+        record = EvaluationRecord(**make_record(ground_truth_answer=""))
         result = self.evaluator.evaluate(record)
         assert result.score == 0.5
 

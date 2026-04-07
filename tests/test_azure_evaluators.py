@@ -81,9 +81,7 @@ class TestAzureEvaluatorNotConfigured:
             ResponseCompletenessEvaluator,
         ],
     )
-    def test_unconfigured_returns_error(
-        self, evaluator_cls: type[AzureEvaluatorBase]
-    ) -> None:
+    def test_unconfigured_returns_error(self, evaluator_cls: type[AzureEvaluatorBase]) -> None:
         ev = evaluator_cls()
         record = EvaluationRecord(**make_record())
         result = ev.evaluate(record)

@@ -87,9 +87,7 @@ class TestJudgePromptFormatting:
 
     def test_hallucination_prompt_includes_contexts(self) -> None:
         judge = HallucinationJudge()
-        record = EvaluationRecord(
-            **make_record(contexts=["ctx1", "ctx2"])
-        )
+        record = EvaluationRecord(**make_record(contexts=["ctx1", "ctx2"]))
         prompt = judge._format_user_prompt(record)
         assert "ctx1" in prompt
         assert "ctx2" in prompt

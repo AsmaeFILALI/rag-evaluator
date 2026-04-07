@@ -43,8 +43,7 @@ class ExactMatchAccuracyEvaluator(BaseEvaluator):
     @property
     def description(self) -> str:
         return (
-            "Checks whether the normalised ground-truth answer appears "
-            "in the normalised response."
+            "Checks whether the normalised ground-truth answer appears in the normalised response."
         )
 
     def evaluate(self, record: EvaluationRecord) -> EvaluatorResult:

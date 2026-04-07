@@ -44,7 +44,6 @@ class AnswerPresenceEvaluator(BaseEvaluator):
         return EvaluatorResult(
             score=0.0,
             reason=(
-                f"Response contains only {len(words)} word(s), "
-                f"below minimum of {_MIN_WORD_COUNT}."
+                f"Response contains only {len(words)} word(s), below minimum of {_MIN_WORD_COUNT}."
             ),
         )

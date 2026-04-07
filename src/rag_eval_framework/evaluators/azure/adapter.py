@@ -103,9 +103,7 @@ class AzureEvaluatorBase(BaseEvaluator):
         """Map a dataset record to the dict accepted by the SDK evaluator."""
         raise NotImplementedError  # pragma: no cover
 
-    def _normalise_sdk_output(
-        self, sdk_result: dict[str, Any]
-    ) -> EvaluatorResult:
+    def _normalise_sdk_output(self, sdk_result: dict[str, Any]) -> EvaluatorResult:
         """Convert the SDK evaluator output to a framework ``EvaluatorResult``."""
         raise NotImplementedError  # pragma: no cover
 
@@ -116,9 +114,7 @@ class AzureEvaluatorBase(BaseEvaluator):
         try:
             _require_azure_sdk()
         except ImportError:
-            logger.warning(
-                "Azure evaluator '%s' disabled: %s", self.name, _SDK_INSTALL_HINT
-            )
+            logger.warning("Azure evaluator '%s' disabled: %s", self.name, _SDK_INSTALL_HINT)
             return
 
         if not isinstance(config, ProjectConfig):
@@ -145,9 +141,7 @@ class AzureEvaluatorBase(BaseEvaluator):
         """Dynamically import the SDK evaluator class."""
         parts = self._sdk_class_name.rsplit(".", 1)
         if len(parts) != 2:
-            raise ImportError(
-                f"Invalid SDK class name: {self._sdk_class_name}"
-            )
+            raise ImportError(f"Invalid SDK class name: {self._sdk_class_name}")
         module_path, class_name = parts
         import importlib
 

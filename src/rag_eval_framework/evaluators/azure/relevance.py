@@ -61,4 +61,3 @@ class RelevanceEvaluator(AzureEvaluatorBase):
             metadata={"raw_score": raw_score},
             raw_output=sdk_result,
         )
-

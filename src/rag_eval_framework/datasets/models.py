@@ -40,10 +40,7 @@ class EvaluationRecord(BaseModel):
     )
     ground_truth_documents: list[str] = Field(
         default_factory=list,
-        description=(
-            "Expected document identifiers or passages for retrieval quality "
-            "evaluation."
-        ),
+        description=("Expected document identifiers or passages for retrieval quality evaluation."),
     )
 
     metadata: dict[str, Any] = Field(

@@ -388,10 +388,12 @@ class TestFoundryRunner:
         mock_adapter = mock_adapter_cls.return_value
         mock_adapter.submit_and_wait.return_value = self._make_fake_raw_results()
 
-        cfg = ProjectConfig(**_cloud_config(
-            evaluators=["groundedness", "relevance"],
-            thresholds={"groundedness": 0.7},
-        ))
+        cfg = ProjectConfig(
+            **_cloud_config(
+                evaluators=["groundedness", "relevance"],
+                thresholds={"groundedness": 0.7},
+            )
+        )
         runner = FoundryRunner()
         result = runner.run(cfg)
 
@@ -413,10 +415,12 @@ class TestFoundryRunner:
         mock_adapter = mock_adapter_cls.return_value
         mock_adapter.submit_and_wait.return_value = self._make_fake_raw_results()
 
-        cfg = ProjectConfig(**_cloud_config(
-            evaluators=["groundedness", "relevance"],
-            thresholds={"relevance": 0.9},  # will breach (0.6 < 0.9)
-        ))
+        cfg = ProjectConfig(
+            **_cloud_config(
+                evaluators=["groundedness", "relevance"],
+                thresholds={"relevance": 0.9},  # will breach (0.6 < 0.9)
+            )
+        )
         runner = FoundryRunner()
         result = runner.run(cfg)
 
@@ -495,8 +499,10 @@ class TestFoundryAdapter:
     def test_require_foundry_sdk_raises_import_error(self) -> None:
         from rag_eval_framework.runners.foundry.adapter import _require_foundry_sdk
 
-        with patch.dict("sys.modules", {"azure.ai.projects": None}), \
-             pytest.raises(ImportError, match="Azure AI Projects SDK"):
+        with (
+            patch.dict("sys.modules", {"azure.ai.projects": None}),
+            pytest.raises(ImportError, match="Azure AI Projects SDK"),
+        ):
             _require_foundry_sdk()
 
 

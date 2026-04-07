@@ -33,9 +33,7 @@ def _make_run_result(**overrides) -> EvaluationRunResult:  # type: ignore[no-unt
                 record_id="r-002",
                 evaluator_results={
                     "answer_presence": EvaluatorResult(score=1.0, reason="OK"),
-                    "exact_match_accuracy": EvaluatorResult(
-                        score=0.0, reason="No match"
-                    ),
+                    "exact_match_accuracy": EvaluatorResult(score=0.0, reason="No match"),
                 },
                 passed=False,
             ),

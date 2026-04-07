@@ -251,19 +251,6 @@ mypy src/
 
 ---
 
-## Security
-
-This repository is designed for **public publication**:
-
-- **No secrets, API keys, or credentials** are stored in the repository
-- Azure credentials are resolved at runtime via `DefaultAzureCredential` or environment variables
-- Sample configs use placeholder values (`https://your-resource.openai.azure.com`)
-- Sample datasets contain only synthetic data
-- Copy `.env.example` to `.env` and add your credentials locally — `.env` files are gitignored
-
-If you discover any sensitive data that was accidentally committed, please open an issue immediately.
-
----
 
 ## Contributing
 

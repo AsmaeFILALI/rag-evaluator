@@ -43,9 +43,7 @@ class TestPhase2Fields:
         assert rec.ground_truth_documents == []
 
     def test_ground_truth_documents_populated(self) -> None:
-        rec = EvaluationRecord(
-            **make_record(ground_truth_documents=["doc-id-1", "doc-id-2"])
-        )
+        rec = EvaluationRecord(**make_record(ground_truth_documents=["doc-id-1", "doc-id-2"]))
         assert len(rec.ground_truth_documents) == 2
 
 

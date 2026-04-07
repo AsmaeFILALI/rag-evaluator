@@ -41,9 +41,7 @@ def load_config(config_path: str | Path) -> ProjectConfig:
         raise ConfigLoadError(f"Configuration file not found: {path}")
 
     if path.suffix not in (".yaml", ".yml"):
-        raise ConfigLoadError(
-            f"Configuration file must be .yaml or .yml, got: {path.suffix}"
-        )
+        raise ConfigLoadError(f"Configuration file must be .yaml or .yml, got: {path.suffix}")
 
     try:
         raw = path.read_text(encoding="utf-8")
@@ -56,16 +54,12 @@ def load_config(config_path: str | Path) -> ProjectConfig:
         raise ConfigLoadError(f"Invalid YAML in configuration file: {exc}") from exc
 
     if not isinstance(data, dict):
-        raise ConfigLoadError(
-            "Configuration file must contain a YAML mapping at the top level."
-        )
+        raise ConfigLoadError("Configuration file must contain a YAML mapping at the top level.")
 
     try:
         config = ProjectConfig(**data)
     except ValidationError as exc:
-        raise ConfigLoadError(
-            f"Configuration validation failed:\n{exc}"
-        ) from exc
+        raise ConfigLoadError(f"Configuration validation failed:\n{exc}") from exc
 
     logger.info("Loaded configuration for project '%s'", config.project_name)
     return config  # noqa: RET504

@@ -61,18 +61,14 @@ class FoundryRunner(BaseRunner):
         start = time.monotonic()
         timestamp = datetime.now(timezone.utc).isoformat()
 
-        logger.info(
-            "Starting CLOUD mode evaluation for project '%s'", config.project_name
-        )
+        logger.info("Starting CLOUD mode evaluation for project '%s'", config.project_name)
 
         # 1. Build and connect the adapter
         try:
             adapter = FoundryAdapter(config)
             adapter.connect()
         except (FoundryAdapterError, ImportError) as exc:
-            raise CloudRunnerError(
-                f"Failed to initialise cloud evaluation: {exc}"
-            ) from exc
+            raise CloudRunnerError(f"Failed to initialise cloud evaluation: {exc}") from exc
 
         # 2. Submit and wait for results
         try:
@@ -82,22 +78,16 @@ class FoundryRunner(BaseRunner):
                 display_name=config.project_name,
             )
         except FoundryAdapterError as exc:
-            raise CloudRunnerError(
-                f"Cloud evaluation run failed: {exc}"
-            ) from exc
+            raise CloudRunnerError(f"Cloud evaluation run failed: {exc}") from exc
 
         # 3. Normalise cloud results
         raw_metrics = raw_results.get("metrics", {})
         raw_rows = raw_results.get("rows", [])
         run_id = raw_results.get("run_id", "")
 
-        aggregate_scores = normalise_cloud_metrics(
-            raw_metrics, config.evaluators
-        )
+        aggregate_scores = normalise_cloud_metrics(raw_metrics, config.evaluators)
 
-        record_results = normalise_cloud_rows(
-            raw_rows, config.evaluators
-        )
+        record_results = normalise_cloud_rows(raw_rows, config.evaluators)
         total_records = len(record_results) if record_results else 0
 
         # 4. Apply thresholds

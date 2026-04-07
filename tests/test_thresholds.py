@@ -22,9 +22,7 @@ class TestThresholdResults:
             make_record(id="r-001"),
             make_record(id="r-002", contexts=[]),
         ]
-        dataset_path.write_text(
-            "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-        )
+        dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
         return ProjectConfig(
             **make_config(
                 dataset_path=str(dataset_path),
@@ -39,17 +37,13 @@ class TestThresholdResults:
         result = LocalRunner().run(runner_config)
         assert len(result.threshold_results) == 2
 
-    def test_threshold_results_contain_pass_and_fail(
-        self, runner_config: ProjectConfig
-    ) -> None:
+    def test_threshold_results_contain_pass_and_fail(self, runner_config: ProjectConfig) -> None:
         result = LocalRunner().run(runner_config)
         by_name = {tr.evaluator: tr for tr in result.threshold_results}
         assert by_name["answer_presence"].passed is True
         assert by_name["context_presence"].passed is False
 
-    def test_threshold_results_have_actual_scores(
-        self, runner_config: ProjectConfig
-    ) -> None:
+    def test_threshold_results_have_actual_scores(self, runner_config: ProjectConfig) -> None:
         result = LocalRunner().run(runner_config)
         for tr in result.threshold_results:
             assert 0.0 <= tr.actual <= 1.0
@@ -66,9 +60,7 @@ class TestPerRecordPassFail:
             make_record(id="r-pass"),
             make_record(id="r-fail", contexts=[]),
         ]
-        dataset_path.write_text(
-            "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-        )
+        dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
         return ProjectConfig(
             **make_config(
                 dataset_path=str(dataset_path),
@@ -94,9 +86,7 @@ class TestFieldRequirementSkipping:
             make_record(id="r-has-ctx", contexts=["some context"]),
             make_record(id="r-no-ctx", contexts=[]),
         ]
-        dataset_path.write_text(
-            "\n".join(json.dumps(r) for r in records), encoding="utf-8"
-        )
+        dataset_path.write_text("\n".join(json.dumps(r) for r in records), encoding="utf-8")
         return ProjectConfig(
             **make_config(
                 dataset_path=str(dataset_path),
@@ -105,9 +95,7 @@ class TestFieldRequirementSkipping:
             )
         )
 
-    def test_no_crash_on_missing_fields(
-        self, config_with_contexts_eval: ProjectConfig
-    ) -> None:
+    def test_no_crash_on_missing_fields(self, config_with_contexts_eval: ProjectConfig) -> None:
         """Even though contexts are empty, the record should not crash."""
         result = LocalRunner().run(config_with_contexts_eval)
         assert result.total_records == 2

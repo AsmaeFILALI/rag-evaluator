@@ -389,13 +389,9 @@ class ProjectConfig(BaseModel):
     def _ensure_consistency(self) -> Self:
         """Ensure the active mode block is present."""
         if self.mode == "local" and self.local_mode is None:
-            raise ValueError(
-                "mode is 'local' but no 'local_mode' block was provided."
-            )
+            raise ValueError("mode is 'local' but no 'local_mode' block was provided.")
         if self.mode == "cloud" and self.cloud_mode is None:
-            raise ValueError(
-                "mode is 'cloud' but no 'cloud_mode' block was provided."
-            )
+            raise ValueError("mode is 'cloud' but no 'cloud_mode' block was provided.")
         return self
 
     # ------------------------------------------------------------------

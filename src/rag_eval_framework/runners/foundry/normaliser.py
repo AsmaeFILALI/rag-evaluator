@@ -37,10 +37,10 @@ def normalise_cloud_metrics(
     for name in evaluator_names:
         # Try several key conventions used by the SDK
         candidates = [
-            f"{name}.{name}",          # e.g. "groundedness.groundedness"
-            f"{name}.gpt_{name}",      # e.g. "groundedness.gpt_groundedness"
-            name,                       # direct key
-            f"gpt_{name}",             # legacy key
+            f"{name}.{name}",  # e.g. "groundedness.groundedness"
+            f"{name}.gpt_{name}",  # e.g. "groundedness.gpt_groundedness"
+            name,  # direct key
+            f"gpt_{name}",  # legacy key
         ]
         raw_val: float | None = None
         for key in candidates:
@@ -56,8 +56,7 @@ def normalise_cloud_metrics(
                 scores[name] = round(raw_val, 4)
         else:
             logger.warning(
-                "Cloud metrics missing score for evaluator '%s'. "
-                "Available keys: %s",
+                "Cloud metrics missing score for evaluator '%s'. Available keys: %s",
                 name,
                 list(raw_metrics.keys()),
             )

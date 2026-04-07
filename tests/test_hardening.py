@@ -133,18 +133,14 @@ def _make_run_result(**overrides: object) -> EvaluationRunResult:
                 record_id="r-001",
                 evaluator_results={
                     "answer_presence": EvaluatorResult(score=1.0, reason="OK"),
-                    "exact_match_accuracy": EvaluatorResult(
-                        score=1.0, reason="Match"
-                    ),
+                    "exact_match_accuracy": EvaluatorResult(score=1.0, reason="Match"),
                 },
             ),
             RecordResult(
                 record_id="r-002",
                 evaluator_results={
                     "answer_presence": EvaluatorResult(score=1.0, reason="OK"),
-                    "exact_match_accuracy": EvaluatorResult(
-                        score=0.3, reason="No match"
-                    ),
+                    "exact_match_accuracy": EvaluatorResult(score=0.3, reason="No match"),
                 },
                 passed=False,
             ),
