@@ -172,6 +172,8 @@ rag-eval-framework/
 ├── README.md                          # This file
 ├── SPEC.md                            # Full specification and roadmap
 ├── .env.example                       # Environment variable template
+├── .github/workflows/ci.yml           # GitHub Actions CI + eval quality gate
+├── azure-pipelines.yml                # Azure DevOps CI + eval quality gate
 ├── src/rag_eval_framework/
 │   ├── config/                        # YAML config loading and Pydantic models
 │   ├── datasets/                      # Dataset loading and validation
@@ -218,6 +220,40 @@ rag-eval-framework/
 | [Getting Started](docs/getting-started.md) | Installation and first run walkthrough |
 | [FAQ](docs/faq.md) | Common questions about modes, scores, and config |
 | [Contributing](docs/contributing.md) | Development workflow, testing, and guidelines |
+
+---
+
+## CI/CD Integration
+
+The CLI uses structured exit codes designed for pipeline gating:
+
+| Exit Code | Meaning | Pipeline Effect |
+|---|---|---|
+| `0` | All thresholds passed | **Merge allowed** |
+| `1` | Config load error | Fail the job |
+| `2` | Evaluation runtime error | Fail the job |
+| `3` | Threshold breaches detected | **Block the merge** |
+
+### Ready-made pipeline templates
+
+| Platform | File | Description |
+|---|---|---|
+| GitHub Actions | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Tests + scaffold eval gate (+ optional Azure eval) |
+| Azure DevOps | [`azure-pipelines.yml`](azure-pipelines.yml) | Tests + scaffold eval gate (+ optional Azure eval) |
+
+Both templates include:
+1. **Unit tests & lint** across Python 3.10 – 3.12
+2. **Scaffold evaluation quality gate** — runs the sample config, fails on threshold breach
+3. **Optional Azure SDK evaluation stage** (commented out) — uncomment and add credentials to enable
+
+### Quick example: block a PR on quality regression
+
+```yaml
+# In your own pipeline — just call rag-eval:
+- run: rag-eval --config project-configs/my-rag.yaml
+  # exit 0 → merge allowed
+  # exit 3 → quality regression → PR blocked
+```
 
 ---
 
